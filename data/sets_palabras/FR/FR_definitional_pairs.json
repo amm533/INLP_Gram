@@ -1,0 +1,12 @@
+[
+    ["femme", "homme"], 
+    ["femme", "mari"], 
+    ["fille", "garçon"], 
+    ["fille", "fils"],
+    ["elle", "il"], 
+    ["mère", "père"],
+    ["femelle", "mâle"], 
+    ["sœur", "frère"], 
+    ["tante", "oncle"], 
+    ["louise", "gabriel"]
+]

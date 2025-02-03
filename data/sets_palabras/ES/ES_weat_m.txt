@@ -1,0 +1,8 @@
+hombre
+niño
+padre
+masculino
+abuelo
+esposo
+hijo
+tío
