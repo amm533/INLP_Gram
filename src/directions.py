@@ -9,14 +9,9 @@ from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
 from sklearn.model_selection import cross_val_score, cross_validate
 from sklearn import preprocessing
 
-# origen: Examining Gender Bias in Languages with Grammatical Gender
-# https://github.com/shaoxia57/Bias_in_Gendered_Languages/blob/master/bias_emnlp19.ipynb
-# simplemente he adaptado el código original para acceder a mi variable KeyedVectors y para mostrar el gráfico de barras
-
-# pairs: pares de palabras ['mujer', 'hombre'], etc.
-# se resta a cada palabra masculina o femenina la media entre heterónimos,
-#      de esta forma, no buscamos maximizar la varianza interna de las palabras femeninas o masculinas,
-#      porque cada palabra lleva implícita la diferencia con su heterónimo opuesto
+############################################################
+#        Original code (adapted): Examining Gender Bias in Languages with Grammatical Gender
+#        https://github.com/shaoxia57/Bias_in_Gendered_Languages/blob/master/bias_emnlp19.ipynb
 
 def doPCA(pairs, kv_model, num_components = 10):
 
@@ -37,68 +32,11 @@ def doPCA(pairs, kv_model, num_components = 10):
 
     return pca, matrix, words
     
-def get_gender_direction_PCA(pairs, model):
-    
-    modelo_pca_es, pares_entrada_pca, palabras_entrada_pca = doPCA(pairs, model)
-
-    # Proporción de varianza explicada: 
-    # gráfica de barras para ver cuánta información es capaz de capturar cada una de las componentes del modelo
-
-    fig=plt.figure(figsize=(10, 7), dpi=80)
-    plt.bar(range(10), modelo_pca_es.explained_variance_ratio_)
-    plt.xlabel('Components',fontsize=20)
-    plt.ylabel('Percentage of variance explained', fontsize=20)
-    plt.margins(tight=True)
-
-    for i, v in enumerate(modelo_pca_es.explained_variance_ratio_):
-        plt.text(i, v + 0.01, f"{v:.2%}", ha='center', fontsize=12)
-
-    plt.show()
-
-    pc1 = modelo_pca_es.components_[0]
-
-    print(pares_entrada_pca.shape)
-    print(pc1.shape)
-    
-    datos_proyectados_en_pc1 = modelo_pca_es.transform(pares_entrada_pca)
-    
-    print(datos_proyectados_en_pc1.shape)
-    
-    datos_proyectados_en_pc1 = datos_proyectados_en_pc1[:, 0]
-    
-    print(datos_proyectados_en_pc1.shape)
-    
-    plt.figure(figsize=(12, 3))
-    plt.scatter(datos_proyectados_en_pc1, np.zeros_like(datos_proyectados_en_pc1), marker='o')
-        
-    # Añadir etiquetas con las palabras a cada punto
-    for i, word in enumerate(palabras_entrada_pca):
-        plt.text(datos_proyectados_en_pc1[i], 0, word, fontsize=9, ha='right', va='bottom')
-        
-    plt.title("Proyección de las palabras en la primera componente principal")
-    plt.xlabel("Primera componente principal")
-    plt.ylabel("Valor (cero para visualización)")
-    plt.show()
-
-    # pc1 será un vector de longitud igual a la dimensión de los datos originales 
-    #     (por ejemplo, si cada vector de kv_model tiene 300 dimensiones, entonces pc1 tendrá 300 valores)
-    # Cada valor en este vector indica el peso o contribución de la dimensión correspondiente del espacio original a la componente principal
-    # Las dimensiones originales que tienen valores más grandes (en valor absoluto) en el vector PC1 
-    #     son las que más contribuyen a esa nueva dirección de máxima varianza
-
-    return(pc1)
-
-    # Semantic Gender Directions
-
-
-# Get semantic gender component for a vector by removing the grammatical gender component
 
 def get_SG_component(v, dGram):
-
-    # Ensure both vectors are 1D
-    v = v.flatten() if len(v.shape) > 1 else v
-    dGram = dGram.flatten() if len(dGram.shape) > 1 else dGram
-    
+    """
+    Get the semantic gender component for a vector by removing the grammatical gender component
+    """
     dGram_square_norm = dGram.dot(dGram) # The dot product of a vector with itself equals the square of its magnitude/length/vector norm
     unit_dGram = dGram/ dGram_square_norm # A vector divided by its norm is a unit vector (only has a direction)
     dot_prod = v.dot(dGram) # The dot product is the similarity between vectors
@@ -106,6 +44,10 @@ def get_SG_component(v, dGram):
     SG_component = v - dGram_component
     
     return SG_component
+
+
+####################################################
+#          Other functions
 
 def cos_sim(v1, v2):
     dot_prod = v1.dot(v2)
