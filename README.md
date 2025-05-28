@@ -6,7 +6,14 @@ To cite:
 
 ```
 
-
+@article{morote2025approach,
+  title={Approach to Preserve Grammatical Gender when Debiasing Word Embeddings in Spanish},
+  author={Mart{\'i}nez, Aitana Morote and Consuegra-Ayala, Juan Pablo and Lloret, Elena},
+  journal={Procesamiento del Lenguaje Natural},
+  volume={},
+  pages={--},
+  year={2025}
+}
 
 ```
 
