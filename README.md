@@ -1,6 +1,6 @@
-# INLP-Gram: Preserving Grammatical Gender when Debiasing Word Embeddings in Spanish 
+# Approach to Preserve Grammatical Gender when Debiasing Word Embeddings in Spanish 
 
-This repository contains the code and data for the experiments from the paper ["Preserving Grammatical Gender when Debiasing Word Embeddings in Spanish"](url).
+This repository contains the code and data for the experiments from the paper ["Approach to Preserve Grammatical Gender when Debiasing Word Embeddings in Spanish"](url).
 
 To cite:
 
